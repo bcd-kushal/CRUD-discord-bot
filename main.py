@@ -1,10 +1,12 @@
 import discord
 from discord.ext import commands
 import os
+import asyncio
 import mysql.connector
 
 from checkPing import bot_ping
 from fetchData import fetch_data
+from _keeps_alive import keeping_alive
 
 #=================================================================
 
@@ -55,7 +57,7 @@ async def ping_check(interaction:discord.Interaction):
 
 
 
-                #GET ALL DATA OF TABLE
+                #
 @client.tree.command(name='all_data',description='Get all data there is')
 async def send_data(interaction:discord.Interaction,filter:str=None):
     await fetch_data(interaction,cursor,filter)
@@ -63,4 +65,6 @@ async def send_data(interaction:discord.Interaction,filter:str=None):
 
 
 #===================================================================
+
+keeping_alive()
 client.run(str(os.environ['BOT_TOKEN']))
